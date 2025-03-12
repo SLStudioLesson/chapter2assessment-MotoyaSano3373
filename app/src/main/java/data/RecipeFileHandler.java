@@ -30,7 +30,6 @@ public class RecipeFileHandler {
      */
     public ArrayList<String> readRecipes(String fileName) {
         try{
-            File file = new File(filePath);
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             return reader;
         }catch (IOException e) {

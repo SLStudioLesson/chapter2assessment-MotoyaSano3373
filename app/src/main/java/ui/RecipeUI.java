@@ -73,10 +73,14 @@ public class RecipeUI {
     private void displayRecipes() {
         RecipeFileHandler handler = new RecipeFileHandler();
             String line;
-            BufferedReader reader = new BufferedReader(new FileReader("app/src/main/resources/recipes.txt"));
-            while(( line = bufferedReader.readLine()) != null){
+        try(BufferedReader bw = new BufferedReader(new FileReader("app/src/main/resources/recipes.txt"))){
+            while((line = bw.readLine()) != null){
                 System.out.println(line);
            }
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+            
             }
         
 
