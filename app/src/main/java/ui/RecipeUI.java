@@ -1,9 +1,15 @@
 package ui;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.App;
 
 import data.RecipeFileHandler;
 
@@ -37,9 +43,11 @@ public class RecipeUI {
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
+                        displayRecipes();
                         break;
                     case "2":
                         // 設問2: 新規登録機能
+                        addNewRecipe();
                         break;
                     case "3":
                         // 設問3: 検索機能
@@ -62,6 +70,11 @@ public class RecipeUI {
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
     private void displayRecipes() {
+        recipe.readRecipes();
+        for(Recipe recipes : recipe){
+            System.out.println(recipes);
+        }
+
 
     }
 
@@ -72,8 +85,37 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void addNewRecipe() throws IOException {
+        ArrayList<String> cooking = readDataFromFile();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("レシピ名を入力してください: ");
+        String recipe = reader.readLine();
+        System.out.print("材料を入力してください: 終了するには 'end' と入力してください。");
+        String ingredient = reader.readLine();
+        // while (true) {
+        //     System.out.print("材料を入力してください: 終了するには 'end' と入力してください。");
+        //     ingredient = reader.readLine();
+            if (ingredient.equalsIgnoreCase("end")) {
+                break;
+            }
+            cooking.add(recipe + "," + ingredient);
+        // }
+        writeDataToFile(cooking);
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("recipes.txt", true))) {
+            writer.write(writeDataToFile());
+            writer.newLine();
+            System.out.println("Recipe added successfully.");
+        } catch (IOException e) {
+            System.out.println("ファイル操作エラー: " + e.getMessage());
+        }
+        readAndDisplayCustomerInfo("recipes.txt");
+
+        System.out.println("レシピ名:");
+        for (Recipes cookings : cooking) {
+            System.out.println(recipe);
+        }
     }
+
 
     /**
      * 設問3: 検索機能

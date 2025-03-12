@@ -1,7 +1,11 @@
 package data;
-
+import java.App;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import ui.RecipeUI;
 
 public class RecipeFileHandler {
     private String filePath;
@@ -21,14 +25,24 @@ public class RecipeFileHandler {
      *
      * @return レシピデータ
      */
-    public ArrayList<String> readRecipes() {
-        // try {
+    public ArrayList<String> readRecipes(String fileName) {
+        RecipeUI recipes = new RecipeUI();
+        readAndDisplayRecipeInfo("recipe.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){ 
+            String line;
+        ArrayList<Recipe> recipe = new ArrayList<>();
+        While((line = reader.readLine()) != null);{
+            String[] data = line.split(", ");
 
-        // } catch (IOException e) {
-        //     System.out.println("Error reading file:" + e.getMessage());
-        // }
-        return null;
+                recipe.add(new recipe(data));
+        }
+    }catch (IOException e) {
+        System.out.println("Error reading file:" + e.getMessage());
     }
+    return null;
+
+        } 
+    
 
     /**
      * 設問2: 新規登録機能
