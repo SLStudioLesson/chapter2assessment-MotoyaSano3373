@@ -1,5 +1,5 @@
 package data;
-import java.App;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import ui.RecipeUI;
 
@@ -31,13 +30,12 @@ public class RecipeFileHandler {
      */
     public ArrayList<String> readRecipes() {
         ArrayList<String> data = new ArrayList<>();
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
-            String line;
-            while((line = reader.readLine()) != null){
-                data.add(line);
-            }
-                }catch (IOException e) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath));){
+                String line;
+                while((line = reader.readLine()) != null){
+                        data.add(line);
+                }
+            }catch (IOException e) {
                     System.out.println("Error reading file:" + e.getMessage());
                 }
                 return data;
