@@ -73,7 +73,7 @@ public class RecipeUI {
         data = handler.readRecipes();
         if(data.isEmpty()){
             System.out.println("No recipes available.");
-            System.exit(0);
+            return;
         }
         String[] lists;
                     for(String datas : data){
