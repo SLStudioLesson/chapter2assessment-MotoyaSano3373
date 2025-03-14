@@ -72,16 +72,23 @@ public class RecipeUI {
      */
     private void displayRecipes() {
         RecipeFileHandler handler = new RecipeFileHandler();
-            String line;
-        try(BufferedReader bw = new BufferedReader(new FileReader("app/src/main/resources/recipes.txt"))){
-            while((line = bw.readLine()) != null){
-                System.out.println(line);
-           }
-        } catch(IOException e){
-            e.printStackTrace();
-        }
-            
+        ArrayList<String> data = new ArrayList<>();
+        data = handler.readRecipes();
+        String[] lists;
+                    for(String datas : data){
+                        lists = datas.split(",", 2);
+                if(lists != null ){
+                    System.out.println("-----------------------------------");
+                    System.out.println("Recipe Name: " + lists[0]);
+                    System.out.println("Main Ingredients: " + lists[1]);
+                }else{
+                    System.out.println("No recipes available.");
+                }
             }
+            System.out.println("-----------------------------------");
+ 
+            }
+            
         
 
 

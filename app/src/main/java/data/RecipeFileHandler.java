@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import ui.RecipeUI;
 
@@ -28,16 +29,19 @@ public class RecipeFileHandler {
      *
      * @return レシピデータ
      */
-    public ArrayList<String> readRecipes(String fileName) {
+    public ArrayList<String> readRecipes() {
+        ArrayList<String> data = new ArrayList<>();
         try{
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            return reader;
-        }catch (IOException e) {
-        System.out.println("Error reading file:" + e.getMessage());
-    }
-
-
-        } 
+            BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
+            String line;
+            while((line = reader.readLine()) != null){
+                data.add(line);
+            }
+                }catch (IOException e) {
+                    System.out.println("Error reading file:" + e.getMessage());
+                }
+                return data;
+            }
     
 
     /**
